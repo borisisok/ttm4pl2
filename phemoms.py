@@ -1,4 +1,4 @@
-phons = {
+phonms_a = {
 '/AR/':  0,
 '/AW/':  1,
 '/AX/':  2,
