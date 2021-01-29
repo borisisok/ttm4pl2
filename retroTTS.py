@@ -83,6 +83,7 @@ import argparse
 
 import retroSpeak
 from en_US_rules import Rules
+from nltk.lm import vocabulary
 from vocabulary import *
 
 # Parts of rules
@@ -254,7 +255,7 @@ for word in args.text:
     phonemes = phonemes + ' PA4'
 
 if args.verbose or args.silent:
-    print phonemes
+    print(phonemes)
 
 if not(args.silent):
     # Initialise retroSpeak board
