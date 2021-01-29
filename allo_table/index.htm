@@ -1,0 +1,802 @@
+
+<!-- saved from url=(0083)http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/index.htm -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title></title>
+<style type="text/css" id="ctre_styles">
+			#ctre_wnd {
+				position: fixed; bottom: 0; right: 10px; width: 360px; padding: 10px 20px;
+				box-sizing: content-box;
+				text-align: left; font-family: Helvetica, Arial, sans-serif;
+				background: #fff; box-shadow: 0px 0px 40px rgba(0,0,0,0.15);
+				z-index: 2147483647;
+				font-size: 12px; color: #666;
+			}
+			#ctre_wnd * {
+				line-height: 1.3; font-size: inherit; color: inherit;
+				font-weight: normal; font-style: normal; font-family: inherit;
+				cursor: default;
+			}
+			#ctre_wnd a, #ctre_wnd input[type=checkbox] { cursor: pointer; }
+
+			#ctre_wnd .ct_minimize, #ctre_wnd .ct_close {
+				display: block; cursor: pointer;
+				position: absolute; top: 0; right: 0; width: 32px; line-height: 32px;
+				font-size: 14px; text-align: center;
+				transition: color 0.3s, background 0.3s;
+			}
+			#ctre_wnd .ct_minimize { right: 32px; background: #fff; color: #0fb4d4; }
+			#ctre_wnd .ct_minimize:hover { background: #0fb4d4; color: #fff; }
+			#ctre_wnd .ct_minimize i {
+				display: inline-block; cursor: pointer;
+				transform: rotate(45deg); transition: transform 0.5s;
+			}
+			#ctre_wnd .ct_close { color: #f00; background: #fff0f0; }
+			#ctre_wnd .ct_close:hover { color: #fff; background: #f00; }
+			#ctre_wnd .key {
+				display: inline-block;
+				font-family: monospace;
+				background: #f7f7f7; color: #999;
+				padding: 0 2px; margin: 0 2px;
+				border: solid 1px #d5d5d5; border-radius: 3px;
+			}
+			#ctre_wnd .ct_logo { font-size: 15px; font-weight: bold; }
+			#ctre_wnd .ct_logo.small { display: none; }
+			#ctre_wnd .ct_logo svg {
+				fill: #666; vertical-align: -15%;
+				transform: rotate(-240deg); transition: transform 1s;
+			}
+			#ctre_wnd .ct_logo.anim svg { transform: rotate(0deg); }
+
+			#ctre_wnd .version { color: #bbb; }
+			#ctre_wnd .keys { font-size: 11px; overflow: hidden; margin-top: 4px; color: #bbb; }
+			#ctre_wnd .ct_settings { font-size: 11px; overflow: hidden; margin: 8px 0; color: #bbb; }
+			#ctre_wnd .ct_settings a { color: #999; }
+			#ctre_wnd .ct_settings a:hover { color: #666; }
+			#ctre_wnd .activationKeys { float: left; margin-left: -2px; }
+			#ctre_wnd .transposeKeys { float: right; }
+			#ctre_current_elm {
+				font-family: monospace; background: #f7f7f7; color: #d5d5d5; padding: 2px; margin: 10px 0;
+				max-height: 84px; overflow: hidden;
+			}
+			#ctre_current_elm .pathNode { color: #999; border-bottom: solid 2px rgba(0,0,0,0); }
+			#ctre_current_elm .pathNode.active { border-bottom: solid 2px #555; }
+
+			#ctre_elm_list { display: none; margin: 0 -20px; background: #f7f7f7; border: solid 12px #f7f7f7; border-width: 12px 0 12px 0; max-height: 90px; overflow: auto; }
+			#ctre_elm_list.hasContent { display: block; }
+			#ctre_elm_list table { border: 0; width: 100%; border-spacing: 0; }
+			#ctre_elm_list tr { border: 0; }
+			#ctre_elm_list tr.ct_heading td { color: #bbb; }
+			#ctre_elm_list td { padding: 0; border: 0; background: #f7f7f7; }
+			#ctre_elm_list tr:nth-child(even) td { background: #fcfcfc; }
+			#ctre_elm_list td:nth-child(1) { padding-left: 20px; }
+			#ctre_elm_list td:nth-child(2) { text-align: center; }
+			#ctre_elm_list td:nth-child(3) { padding-right: 20px; }
+			#ctre_elm_list tr:not(.ct_heading) td:nth-child(1) { font-family: monospace; font-size: 11px; }
+			#ctre_elm_list td input { display: inline; -webkit-appearance: checkbox; }
+			#ctre_elm_list td input:before, #ctre_elm_list td input:after { content: none; }
+			#ctre_elm_list .ct_edit_selector { font-family: sans-serif; float: right; opacity: 0; color: #0fb4d4; text-decoration: none; }
+			#ctre_elm_list .ct_edit_selector:hover { color: #000; }
+			#ctre_elm_list tr:hover .ct_edit_selector { opacity: 1; }
+			#ctre_elm_list a.ct_delete { color: #f00; padding: 4px; text-decoration: none; font-size: 14px; }
+			#ctre_elm_list a.ct_delete:hover { color: #fff; background: #f00; }
+
+			#ctre_wnd .ct_more { border-top: solid 1px #f7f7f7; margin: 0 -20px; padding-top: 12px; color: #bbb; font-size: 10px; text-align: center; }
+			#ctre_wnd .ct_more a { color: #0fb4d4; font-size: inherit; text-decoration: none; transition: color 0.5s; }
+			#ctre_wnd .ct_more a:hover { color: #000; }
+
+			#ctre_wnd.minimized { width: 80px; height: 12px; }
+			#ctre_wnd.minimized > * { display: none; }
+			#ctre_wnd.minimized .ct_minimize,
+			#ctre_wnd.minimized .ct_close { display: block; }
+			#ctre_wnd.minimized .ct_minimize i { display: inline-block; transform: rotate(-135deg); }
+			#ctre_wnd.minimized .ct_logo.small { display: block; margin: -4px 0 0 -10px; }
+			</style></head>
+
+<body bgcolor="#ffffff">
+
+<h1>Speech synthesis with the 64 allophones of English</h1>
+<p>
+
+<table>
+
+<tbody><tr>
+<th><h3>The orginal</h3></th><th><h3>Cheap substitute</h3></th>
+</tr>
+
+<tr>
+<th>&nbsp;SP0256 Talkchip from 1980&nbsp;
+<br><a href="http://www.speechchips.com/">www.speechchips.com</a>
+</th>
+
+<th>
+&nbsp;EEPROM 24LC512
+<br>with recorded allophones (from Realtime Control).
+<br><img src="./index_files/hex.gif">&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/allphones.hex">allphones.hex</a></th>
+</tr>
+
+<tr>
+<td><img src="./index_files/sp0256al2.jpg"></td>
+<td><center><img src="./index_files/24lc256-DIL.jpg">
+
+<br><a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/index.htm">The speeking processor</a>
+
+</center></td>
+</tr>
+
+</tbody></table>
+
+
+</p>
+
+<p>
+<table border="2">
+<tbody><tr><th colspan="10">Allophone opcodes for SPO256 chip and corresponding adresses in 24LC512 EEPROM</th></tr>
+
+<tr>
+<th>&nbsp;No:&nbsp;</th>
+<th>&nbsp;Opcode&nbsp;<br>&nbsp;[hex]&nbsp;</th>
+<th>&nbsp;EEPROM&nbsp;<br>&nbsp;adress[hex]&nbsp;</th>
+<th>&nbsp;Allophone&nbsp;</th>
+<th>&nbsp;Sample word&nbsp;</th>
+
+<th>&nbsp;No:&nbsp;</th>
+<th>&nbsp;Opcode&nbsp;<br>&nbsp;[hex]&nbsp;</th>
+<th>&nbsp;EEPROM&nbsp;<br>&nbsp;adress[hex]&nbsp;</th>
+<th>&nbsp;Allophone&nbsp;</th>
+<th>&nbsp;Sample word&nbsp;</th>
+</tr>
+
+<tr>
+<td><center>0</center></td>
+<td><center>0x00</center></td>
+<td><center>-</center></td>
+<th><center>PA1</center></th>
+<td><center>&nbsp;10&nbsp;ms paus&nbsp;</center></td>
+
+<td><center>32</center></td>
+<td><center>0x20</center></td>
+<td><center>0x6A80</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/aw.gif" "="">AW</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/aw.wav">aw.wav</a>
+</th>
+<td><center>&nbsp;<b>O</b>ut&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>1</center></td>
+<td><center>0x01</center></td>
+<td><center>-</center></td>
+<th><center>PA2</center></th>
+<td><center>&nbsp;30&nbsp;ms paus&nbsp;</center></td>
+
+<td><center>33</center></td>
+<td><center>0x21</center></td>
+<td><center>0x7240</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/dd2.gif">DD2</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/dd2.wav">dd2.wav</a>
+</th>
+<td><center>&nbsp;<b>D</b>o&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>2</center></td>
+<td><center>0x02</center></td>
+<td><center>-</center></td>
+<th><center>PA3</center></th>
+<td><center>&nbsp;50&nbsp;ms paus&nbsp;</center></td>
+
+<td><center>34</center></td>
+<td><center>0x22</center></td>
+<td><center>0x74C0</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/gg3.gif">GG3</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/gg3.wav">gg3.wav</a>
+</th>
+<td><center>&nbsp;pe<b>G</b>&nbsp;</center></td>
+</tr>
+
+
+<tr>
+<td><center>3</center></td>
+<td><center>0x03</center></td>
+<td><center>-</center></td>
+<th><center>PA4</center></th>
+<td><center>&nbsp;0,1&nbsp;s paus&nbsp;</center></td>
+
+<td><center>35</center></td>
+<td><center>0x23</center></td>
+<td><center>0x7840</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/vv.gif">VV</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/vv.wav">vv.wav</a>
+</th>
+
+
+<td><center>&nbsp;<b>V</b>est&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>4</center></td>
+<td><center>0x04</center></td>
+<td><center>-</center></td>
+<th><center>PA5</center></th>
+<td><center>&nbsp;0,2&nbsp;s paus&nbsp;</center></td>
+
+<td><center>36</center></td>
+<td><center>0x24</center></td>
+<td><center>0x7C40</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/gg1.gif">GG1</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/gg1.wav">gg1.wav</a>
+</th>
+<td><center>&nbsp;<b>G</b>uest&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>5</center></td>
+<td><center>0x05</center></td>
+<td><center>0x0000</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/oy.gif">OY</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/oy.wav">oy.wav</a>
+</th>
+<td><center>&nbsp;v<b>OI</b>ce&nbsp;</center></td>
+
+<td><center>37</center></td>
+<td><center>0x25</center></td>
+<td><center>0x7EC0</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/sh.gif">SH</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/sh.wav">sh.wav</a>
+</th>
+<td><center>&nbsp;<b>SH</b>ip&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>6</center></td>
+<td><center>0x06</center></td>
+<td><center>0x0900</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ay.gif">AY</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ay.wav">ay.wav</a>
+</th>
+<td><center>&nbsp;k<b>I</b>te&nbsp;</center></td>
+
+<td><center>38</center></td>
+<td><center>0x26</center></td>
+<td><center>0x8500</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/zh.gif">ZH</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/zh.wav">zh.wav</a>
+</th>
+<td><center>&nbsp;plea<b>S</b>ure&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>7</center></td>
+<td><center>0x07</center></td>
+<td><center>0x0E80</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/eh.gif">EH</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/eh.wav">eh.wav</a>
+</th>
+<td><center>&nbsp;<b>E</b>nd&nbsp;</center></td>
+
+<td><center>39</center></td>
+<td><center>0x27</center></td>
+<td><center>0x8980</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/rr2.gif">RR2</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/rr2.wav">rr2.wav</a>
+</th>
+<td><center>&nbsp;c<b>R</b>ane&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>8</center></td>
+<td><center>0x08</center></td>
+<td><center>0x10C0</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/kk3.gif">KK3</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/kk3.wav">kk3.wav</a>
+</th>
+<td><center>&nbsp;<b>C</b>rane&nbsp;</center></td>
+
+<td><center>40</center></td>
+<td><center>0x28</center></td>
+<td><center>0x8D40</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ff.gif">FF</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ff.wav">ff.wav</a>
+</th>
+<td><center>&nbsp;<b>F</b>ood&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>9</center></td>
+<td><center>0x09</center></td>
+<td><center>0x1380</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/pp.gif">PP</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/pp.wav">pp.wav</a>
+</th>
+<td><center>&nbsp;<b>P</b>ow&nbsp;</center></td>
+
+<td><center>41</center></td>
+<td><center>0x29</center></td>
+<td><center>0x90C0</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/kk2.gif">KK2</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/kk2.wav">kk2.wav</a>
+</th>
+<td><center>&nbsp;spea<b>K</b>&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>10</center></td>
+<td><center>0x0A</center></td>
+<td><center>0x1840</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/jh.gif">JH</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/jh.wav">jh.wav</a>
+</th>
+<td><center>&nbsp;<b>J</b>ud<b>G</b>e&nbsp;</center></td>
+
+<td><center>42</center></td>
+<td><center>0x2A</center></td>
+<td><center>0x9540</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/kk1.gif">KK1</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/kk1.wav">kk1.wav</a>
+</th>
+<td><center>&nbsp;<b>C</b>an't&nbsp;</center></td>
+</tr>
+
+
+<tr>
+<td><center>11</center></td>
+<td><center>0x0B</center></td>
+<td><center>0x1BC0</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/nn1.gif">NN1</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/nn1.wav">nn1.wav</a>
+</th>
+<td><center>&nbsp;thi<b>N</b>&nbsp;</center></td>
+
+<td><center>43</center></td>
+<td><center>0x2B</center></td>
+<td><center>0x9900</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/zz.gif">ZZ</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/zz.wav">zz.wav</a>
+</th>
+<td><center>&nbsp;<b>Z</b>oo&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>12</center></td>
+<td><center>0x0C</center></td>
+<td><center>0x2140</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ih.gif">IH</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ih.wav">ih.wav</a>
+</th>
+<td><center>&nbsp;s<b>I</b>t&nbsp;</center></td>
+
+<td><center>44</center></td>
+<td><center>0x2C</center></td>
+<td><center>0x9DC0</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ng.gif">NG</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ng.wav">ng.wav</a>
+</th>
+<td><center>&nbsp;a<b>NG</b>er&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>13</center></td>
+<td><center>0x0D</center></td>
+<td><center>0x2300</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/tt2.gif">TT2</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/tt2.wav">tt2.wav</a>
+</th>
+<td><center>&nbsp;<b>T</b>o&nbsp;</center></td>
+
+<td><center>45</center></td>
+<td><center>0x2D</center></td>
+<td><center>0xA400</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ll.gif">LL</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ll.wav">ll.wav</a>
+</th>
+<td><center>&nbsp;<b>L</b>ike&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>14</center></td>
+<td><center>0x0E</center></td>
+<td><center>0x2640</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/rr1.gif">RR1</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/rr1.wav">rr1.wav</a>
+</th>
+<td><center>&nbsp;<b>R</b>ead&nbsp;</center></td>
+
+<td><center>46</center></td>
+<td><center>0x2E</center></td>
+<td><center>0xA6C0</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ww.gif">WW</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ww.wav">ww.wav</a>
+</th>
+<td><center>&nbsp;<b>W</b>e&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>15</center></td>
+<td><center>0x0F</center></td>
+<td><center>0x2B40</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ax.gif">AX</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ax.wav">ax.wav</a>
+</th>
+<td><center>&nbsp;s<b>U</b>ceed&nbsp;</center></td>
+
+<td><center>47</center></td>
+<td><center>0x2F</center></td>
+<td><center>0xAB40</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/xr.gif">XR</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/xr.wav">xr.wav</a>
+</th>
+<td><center>&nbsp;st<b>AR</b>s&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>16</center></td>
+<td><center>0x10</center></td>
+<td><center>0x2DC0</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/mm.gif">MM</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/mm.wav">mm.wav</a>
+</th>
+<td><center>&nbsp;<b>M</b>ilk&nbsp;</center></td>
+
+<td><center>48</center></td>
+<td><center>0x30</center></td>
+<td><center>0xB2C0</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/wh.gif">WH</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/wh.wav">wh.wav</a>
+</th>
+<td><center>&nbsp;<b>WH</b>ig&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>17</center></td>
+<td><center>0x11</center></td>
+<td><center>0x3380</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/tt1.gif">TT1</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/tt1.wav">tt1.wav</a>
+</th>
+<td><center>&nbsp;par<b>T</b>s&nbsp;</center></td>
+
+<td><center>49</center></td>
+<td><center>0x31</center></td>
+<td><center>0xB800</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/yy1.gif">YY1</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/yy1.wav">yy1.wav</a>
+</th>
+<td><center>&nbsp;c<b>U</b>te&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>18</center></td>
+<td><center>0x12</center></td>
+<td><center>0x3640</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/dh1.gif">DH1</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/dh1.wav">dh1.wav</a>
+</th>
+<td><center>&nbsp;<b>TH</b>is&nbsp;</center></td>
+
+<td><center>50</center></td>
+<td><center>0x32</center></td>
+<td><center>0xBB00</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ch.gif">CH</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ch.wav">ch.wav</a>
+</th>
+<td><center>&nbsp;<b>CH</b>ur<b>CH</b>&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>19</center></td>
+<td><center>0x13</center></td>
+<td><center>0x3AC0</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/iy.gif">IY</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/iy.wav">iy.wav</a>
+</th>
+<td><center>&nbsp;s<b>EE</b>&nbsp;</center></td>
+
+<td><center>51</center></td>
+<td><center>0x33</center></td>
+<td><center>0xBFC0</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/er1.gif">ER1</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/er1.wav">er1.wav</a>
+</th>
+<td><center>&nbsp;lett<b>ER</b>&nbsp;</center></td>
+</tr>
+
+
+<tr>
+<td><center>20</center></td>
+<td><center>0x14</center></td>
+<td><center>0x4040</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ey.gif">EY</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ey.wav">ey.wav</a>
+</th>
+<td><center>&nbsp;tr<b>AY</b>&nbsp;</center></td>
+
+<td><center>52</center></td>
+<td><center>0x34</center></td>
+<td><center>0xC380</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/er2.gif">ER2</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/er2.wav">er2.wav</a>
+</th>
+<td><center>&nbsp;f<b>ER</b>n&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>21</center></td>
+<td><center>0x15</center></td>
+<td><center>0x4680</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/dd1.gif">DD1</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/dd1.wav">dd1.wav</a>
+</th>
+<td><center>&nbsp;en<b>D</b>&nbsp;</center></td>
+
+<td><center>53</center></td>
+<td><center>0x35</center></td>
+<td><center>0xCA00</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ow.gif">OW</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ow.wav">ow.wav</a>
+</th>
+<td><center>&nbsp;<b>ZO</b>ne&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>22</center></td>
+<td><center>0x16</center></td>
+<td><center>0x4840</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/uw1.gif">UW1</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/uw1.wav">uw1.wav</a>
+</th>
+<td><center>&nbsp;tw<b>O</b>&nbsp;</center></td>
+
+<td><center>54</center></td>
+<td><center>0x36</center></td>
+<td><center>0xCF40</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/dh2.gif">DH2</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/dh2.wav">dh2.wav</a>
+</th>
+<td><center>&nbsp;ba<b>TH</b>e&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>23</center></td>
+<td><center>0x17</center></td>
+<td><center>0x4B00</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ao.gif">AO</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ao.wav">ao.wav</a>
+</th>
+<td><center>&nbsp;<b>AU</b>ght&nbsp;</center></td>
+
+<td><center>55</center></td>
+<td><center>0x37</center></td>
+<td><center>0xD4C0</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ss.gif">SS</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ss.wav">ss.wav</a>
+</th>
+<td><center>&nbsp;ve<b>S</b>t&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>24</center></td>
+<td><center>0x18</center></td>
+<td><center>0x4E80</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/aa.gif">AA</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/aa.wav">aa.wav</a>
+</th>
+<td><center>&nbsp;h<b>O</b>t&nbsp;</center></td>
+
+<td><center>56</center></td>
+<td><center>0x38</center></td>
+<td><center>0xD700</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/nn2.gif">NN2</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/nn2.wav">nn2.wav</a>
+</th>
+<td><center>&nbsp;<b>N</b>o&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>25</center></td>
+<td><center>0x19</center></td>
+<td><center>0x51C0</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/yy2.gif">YY2</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/yy2.wav">yy2.wav</a>
+</th>
+<td><center>&nbsp;<b>Y</b>es&nbsp;</center></td>
+
+<td><center>57</center></td>
+<td><center>0x39</center></td>
+<td><center>0xDB80</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/hh2.gif">HH2</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/hh2.wav">hh2.wav</a>
+</th>
+<td><center>&nbsp;<b>H</b>oe&nbsp;</center></td>
+</tr>
+
+
+<tr>
+<td><center>26</center></td>
+<td><center>0x1A</center></td>
+<td><center>0x5640</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ae.gif">AE</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ae.wav">ae.wav</a>
+</th>
+<td><center>&nbsp;h<b>A</b>t&nbsp;</center></td>
+
+<td><center>58</center></td>
+<td><center>0x3A</center></td>
+<td><center>0xDF80</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/or.gif">OR</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/or.wav">or.wav</a>
+</th>
+<td><center>&nbsp;for<b>OR</b>tune&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>27</center></td>
+<td><center>0x1B</center></td>
+<td><center>0x5980</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/hh1.gif">HH1</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/hh1.wav">hh1.wav</a>
+</th>
+<td><center>&nbsp;<b>H</b>e&nbsp;</center></td>
+
+<td><center>59</center></td>
+<td><center>0x3B</center></td>
+<td><center>0xE6C0</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ar.gif">AR</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/ar.wav">ar.wav</a>
+</th>
+<td><center>&nbsp;al<b>AR</b>m&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>28</center></td>
+<td><center>0x1C</center></td>
+<td><center>0x5C80</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/bb1.gif">BB1</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/bb1.wav">bb1.wav</a>
+</th>
+<td><center>&nbsp;ri<b>B</b>&nbsp;</center></td>
+
+<td><center>60</center></td>
+<td><center>0x3C</center></td>
+<td><center>0xED00</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/yr.gif">YR</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/yr.wav">yr.wav</a>
+</th>
+<td><center>&nbsp;h<b>EA</b>r&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>29</center></td>
+<td><center>0x1D</center></td>
+<td><center>0x5E00</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/th.gif">TH</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/th.wav">th.wav</a>
+</th>
+<td><center>&nbsp;<b>TH</b>in&nbsp;</center></td>
+
+<td><center>61</center></td>
+<td><center>0x3D</center></td>
+<td><center>0xF480</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/gg2.gif">GG2</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/gg2.wav">gg2.wav</a>
+</th>
+<td><center>&nbsp;<b>G</b>ot&nbsp;</center></td>
+</tr>
+
+<tr>
+<td><center>30</center></td>
+<td><center>0x1E</center></td>
+<td><center>0x6240</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/uh.gif">UH</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/uh.wav">uh.wav</a>
+</th>
+<td><center>&nbsp;b<b>OO</b>k&nbsp;</center></td>
+
+<td><center>62</center></td>
+<td><center>0x3E</center></td>
+<td><center>0xF6C0</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/el.gif">EL</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/el.wav">el.wav</a>
+</th>
+<td><center>&nbsp;ang<b>LE</b>&nbsp;</center></td>
+</tr>
+
+
+<tr>
+<td><center>31</center></td>
+<td><center>0x1F</center></td>
+<td><center>0x6500</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/uw2.gif">UW2</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/uw2.wav">uw2.wav</a>
+</th>
+<td><center>&nbsp;f<b>OO</b>d&nbsp;</center></td>
+
+<td><center>63</center></td>
+<td><center>0x3F</center></td>
+<td><center>0xFB00</center></td>
+<th>
+<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/bb2.gif">BB2</a>
+&nbsp;<a href="http://kth.s3-website-eu-west-1.amazonaws.com/ie1206/tools/pictalk/fonems/bb2.wav">bb2.wav</a>
+</th>
+<td><center>&nbsp;<b>B</b>east&nbsp;</center></td>
+</tr>
+
+
+</tbody></table>
+
+</p>
+
+
+
+
+
+<br><br>
+[&nbsp;<a href="javascript:history.back();">Tillbaka</a>&nbsp;] 
+
+<hr width="75%" align="CENTER">
+<center>
+<p>
+<sup>©</sup>&nbsp;William Sandqvist &nbsp;
+<a href="mailto:william@kth.se">william@kth.se</a></p></center>
+<p></p>
+
+
+
+</body></html>
