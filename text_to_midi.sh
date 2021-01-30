@@ -1,0 +1,1 @@
+echo "$1"| perl ./NRL-TTP.pl |  perl ./NRL-TTP.pl rules/ipa_to_sp0256.json | sed 's/\s*//g' | sed 's/\[//g' | sed 's/\]/ /g' | python3 allophones2midi.py "$2"
